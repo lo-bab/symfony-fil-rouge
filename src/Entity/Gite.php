@@ -25,6 +25,9 @@ class Gite
     #[ORM\Column(type: 'integer')]
     private $chambre;
 
+    #[ORM\Column(type: 'integer')]
+    private $couchage;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class Gite
     public function setChambre(int $chambre): self
     {
         $this->chambre = $chambre;
+
+        return $this;
+    }
+
+    public function getCouchage(): ?int
+    {
+        return $this->couchage;
+    }
+
+    public function setCouchage(int $couchage): self
+    {
+        $this->couchage = $couchage;
 
         return $this;
     }
