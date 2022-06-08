@@ -10,27 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
     /**
-     * @route("/", name="home")
-     *
+     * @route("/", name="home_index")
      */
     public function index(ManagerRegistry $doctrine)
     {
         $repository = $doctrine->getRepository(Gite::class);
         
         $gites = $repository->findAll();
-        
-        // $manager = $doctrine->getManager();
-        
-        // $gite = new Gite;
-        // $gite
-        //     ->setNom("Gite2")
-        //     ->setDescription("Description2")
-        //     ->setSurface(100)
-        //     ->setChambre(3)
-        //     ->setCouchage(6);
-
-        // $manager->persist($gite);
-        // $manager->flush();
         
         return $this->render("home/index.html.twig", [
             "title" => "Accueil",
@@ -41,14 +27,11 @@ class HomeController extends AbstractController
     }
     
     /**
-     * @route("/contact", name="contact")
-     *
+     * @route("/contact", name="home_contact")
      */
     public function contact()
     {
         return $this->render("home/contact.html.twig", [
-            "title" => "Contact",
-            "message" => "Formulaire de contact",
             "menu" => "contact",
         ]);
     }
