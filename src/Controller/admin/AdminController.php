@@ -81,22 +81,17 @@ class AdminController extends AbstractController
      */
     public function delete(Gite $gite, ManagerRegistry $doctrine, Request $request)
     {
-        $form = $this->createForm(GiteType::class, $gite);
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            
+        if ($this->isCsrfTokenValid('gite_delete' . $gite->getId(), $request->request->get('token'))) {
+
             $manager = $doctrine->getManager();
-            $manager->persist($gite);
+            $manager->remove($gite);
             $manager->flush();
-            $this->addFlash("success", "gite modifié");
-            return $this->redirectToRoute('admin_index');
-        }
+            $this->addFlash("success", "gite supprimé");
+        } else {
+            
+            $this->addFlash("danger", "token non valide");
+        } 
         
-        return $this->render('admin/gite/edit.html.twig', [
-            "title" => "Edition gite",
-            "title_page" => "Modifier un gite",
-            "formGite" => $form->createView()
-        ]);
+        return $this->redirectToRoute('admin_index');
     }
 }
