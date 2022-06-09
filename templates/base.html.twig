@@ -20,7 +20,7 @@
 	</head>
 	<body class="d-flex flex-column h-100">
 
-		<nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top">
+		<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="#">Navbar</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,13 +29,18 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link {% if menu == 'home' %} active {% endif %}" href=" {{ path('home') }} ">
+							<a class="nav-link {% if menu is defined and menu == 'home' %} active {% endif %}" href=" {{ path('home_index') }} ">
 								Accueil
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link {% if menu == 'contact' %} active {% endif %}" href=" {{ path('contact') }} ">
+							<a class="nav-link {% if menu is defined and menu == 'contact' %} active {% endif %}" href=" {{ path('home_contact') }} ">
 								Contact
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link {% if menu is defined and menu == 'admin' %} active {% endif %}" href=" {{ path('admin_index') }} ">
+								Admin
 							</a>
 						</li>
 					</ul>
@@ -43,20 +48,10 @@
 			</div>
 		</nav>
 
-		<main class="flex-shrink-0">
-			<div class="container">
-				{% block body %}
-				{% endblock %}
-			</div>
+		<main class="container">
+			{% block body %}
+			{% endblock %}
 		</main>
-
-		<footer class="footer mt-auto py-3 bg-dark">
-			<div class="container">
-				{% block footer %}
-					<span class="text-white">&copy; Copyright footer</span>
-				{% endblock %}
-			</div>
-		</footer>
 
 	</body>
 </html>

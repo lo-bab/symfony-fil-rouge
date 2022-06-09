@@ -32,6 +32,8 @@ class HomeController extends AbstractController
     public function contact()
     {
         return $this->render("home/contact.html.twig", [
+            "title" => "Contact",
+            "message" => "Formulaire de contact",
             "menu" => "contact",
         ]);
     }
