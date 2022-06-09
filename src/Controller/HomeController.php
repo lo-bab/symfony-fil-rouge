@@ -20,7 +20,7 @@ class HomeController extends AbstractController
         
         return $this->render("home/index.html.twig", [
             "title" => "Accueil",
-            "message" => "Bienvenue sur mon site",
+            "title_page" => "Bienvenue sur mon site",
             "menu" => "home",
             "gites" => $gites
         ]);
@@ -33,7 +33,7 @@ class HomeController extends AbstractController
     {
         return $this->render("home/contact.html.twig", [
             "title" => "Contact",
-            "message" => "Formulaire de contact",
+            "title_page" => "Formulaire de contact",
             "menu" => "contact",
         ]);
     }

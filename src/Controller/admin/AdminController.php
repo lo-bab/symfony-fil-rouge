@@ -22,7 +22,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/index.html.twig', [
             "title" => "Admin",
-            "message" => "Gestion des gites",
+            "title_page" => "Gestion des gites",
             "gites" => $gites
         ]);
     }
@@ -41,36 +41,62 @@ class AdminController extends AbstractController
             $manager = $doctrine->getManager();
             $manager->persist($gite);
             $manager->flush();
+            $this->addFlash("success", "gite créé");
             return $this->redirectToRoute('admin_index');
         }
         
         return $this->render('admin/gite/create.html.twig', [
             "title" => "Nouveau gite",
-            "message" => "Ajouter un gite",
+            "title_page" => "Ajouter un gite",
             "formGite" => $form->createView()
         ]);
     }
     
     /**
-     * ("/admin/gite/edit/{id}", "admin_gite_edit")
+     * @Route("/admin/gite/edit/{id}", name="admin_gite_edit")
      */
-    // public function edit(Gite $gite, ManagerRegistry $doctrine, Request $request)
-    // {
-    //     $form = $this->createForm(GiteType::class, $gite);
-    //     $form->handleRequest($request);
+    public function edit(Gite $gite, ManagerRegistry $doctrine, Request $request)
+    {
+        $form = $this->createForm(GiteType::class, $gite);
+        $form->handleRequest($request);
         
-    //     if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             
-    //         $manager = $doctrine->getManager();
-    //         $manager->persist($gite);
-    //         $manager->flush();
-    //         return $this->redirectToRoute('admin_index');
-    //     }
+            $manager = $doctrine->getManager();
+            // pas de persist car l'objet existe déjà
+            $manager->flush();
+            $this->addFlash("success", "gite modifié");
+            return $this->redirectToRoute('admin_index');
+        }
         
-    //     return $this->render('admin/gite/edit.html.twig', [
-    //         "title" => "Edition gite",
-    //         "message" => "Modifier un gite",
-    //         "formGite" => $form->createView()
-    //     ]);
-    // }
+        return $this->render('admin/gite/edit.html.twig', [
+            "title" => "Edition gite",
+            "title_page" => "Modifier un gite",
+            "formGite" => $form->createView()
+        ]);
+    }
+    
+    /**
+     * @Route("/admin/gite/delete/{id}", name="admin_gite_delete")
+     */
+    public function delete(Gite $gite, ManagerRegistry $doctrine, Request $request)
+    {
+        $form = $this->createForm(GiteType::class, $gite);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $manager = $doctrine->getManager();
+            $manager->persist($gite);
+            $manager->flush();
+            $this->addFlash("success", "gite modifié");
+            return $this->redirectToRoute('admin_index');
+        }
+        
+        return $this->render('admin/gite/edit.html.twig', [
+            "title" => "Edition gite",
+            "title_page" => "Modifier un gite",
+            "formGite" => $form->createView()
+        ]);
+    }
 }
