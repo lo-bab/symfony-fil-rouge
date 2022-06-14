@@ -8,3 +8,8 @@ symfony 5
 
 - installation du framework symfony
 - création d'une application de gestion de gîtes
+
+# identifiants de test
+
+- admin => admin
+- user => user
