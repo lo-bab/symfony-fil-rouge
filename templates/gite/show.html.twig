@@ -12,14 +12,19 @@
 
 	<div class="row">
 
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<div class="card" style="width: 18rem;">
 				<img src="..." class="card-img-top" alt="...">
 				<div class="card-body">
 					<p class="card-text"> {{ gite.description }} </p>
 					<p class="card-title">Surface : {{ gite.surface }} m²</p>
-					<p class="card-title">Chambre : {{ gite.chambre }} </p>
-					<p class="card-title">Couchage : {{ gite.couchage }} </p>
+					<p class="card-title">Chambre : {{ gite.chambre }} ch.</p>
+					<p class="card-title">Couchage : {{ gite.couchage }} couch.</p>
+					<ul>
+						{% for equipement in gite.equipements %}
+								<li> {{ equipement.name }} </li>
+						{% endfor %}
+					</ul>
 				</div>
 			</div>
 		</div>

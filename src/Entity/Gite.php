@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GiteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: GiteRepository::class)]
@@ -27,6 +29,14 @@ class Gite
 
     #[ORM\Column(type: 'integer')]
     private $couchage;
+
+    #[ORM\ManyToMany(targetEntity: Equipement::class, inversedBy: 'gites')]
+    private $equipements;
+
+    public function __construct()
+    {
+        $this->equipements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +99,30 @@ class Gite
     public function setCouchage(int $couchage): self
     {
         $this->couchage = $couchage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Equipement>
+     */
+    public function getEquipements(): Collection
+    {
+        return $this->equipements;
+    }
+
+    public function addEquipement(Equipement $equipement): self
+    {
+        if (!$this->equipements->contains($equipement)) {
+            $this->equipements[] = $equipement;
+        }
+
+        return $this;
+    }
+
+    public function removeEquipement(Equipement $equipement): self
+    {
+        $this->equipements->removeElement($equipement);
 
         return $this;
     }

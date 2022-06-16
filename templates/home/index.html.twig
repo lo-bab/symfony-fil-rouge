@@ -1,8 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}
-	{{ title }}
-{% endblock %}
+{% block title %} {{ title }} {% endblock %}
 
 {% block body %}
 
@@ -35,26 +33,27 @@
 
 	</div>
 
-	<div class="row">
+	<div class="container">
+		<div class="row">
 
-		{% for gite in gites %}
-			<div class="col-md-3 mt-2">
-				<div class="card" style="width: 18rem;">
-					<img src="..." class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">
-							{{ gite.nom }}
-						</h5>
-						<p class="card-text">
-							{{ gite.description }} <br>
-							{{ gite.surface }} m² - {{ gite.chambre}} ch - {{ gite.couchage}} couch
-						</p>
-						<a href=" {{ path("gite_show", {id: gite.id}) }}" class="btn btn-primary">Voir le gite</a>
+			{% for gite in gites %}
+				<div class="col-md-3 mt-2">
+					<div class="card" style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title">
+								{{ gite.nom }}
+							</h5>
+							<p class="card-text">
+								{{ gite.description }} <br>
+								{{ gite.surface }} m² - {{ gite.chambre}} ch - {{ gite.couchage}} couch
+							</p>
+							<a href=" {{ path("gite_show", {id: gite.id}) }}" class="btn btn-primary">Voir le gite</a>
+						</div>
 					</div>
 				</div>
-			</div>
-		{% endfor %}
+			{% endfor %}
 
+		</div>
 	</div>
 
 {% endblock %}
